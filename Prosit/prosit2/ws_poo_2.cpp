@@ -1,6 +1,6 @@
 #include <iostream>
-/* 
-//Partie 1 : 
+/* //Partie 1 : 
+
 
 class BankAccount {
 private :
@@ -94,7 +94,7 @@ int main() {
 }
 */
 
-// Partie 2 :  
+/* // Partie 2 :  
 
 #include <iostream>
 using namespace std;
@@ -181,3 +181,160 @@ Avec le passage par référence, on agit directement sur l'objet en passant par 
 
 
 */
+
+// Partie 3 : 
+
+#include<iostream>
+#include<string>
+
+#include <iostream>
+#include <string>
+
+class Creature {
+private:
+    int pv;
+    int pa;
+    int niv;
+
+public:
+    Creature() {
+        pv = 0;
+        pa = 0;
+        niv = 1;
+    }
+
+    Creature(int pv, int pa, int niv) {
+        setpv(pv);
+        setpa(pa);
+        setniv(niv);
+    }
+
+    Creature(Creature &Creature1){
+        this->pv = Creature1.getpv();
+        this->pa = Creature1.getpa();
+        this->niv = Creature1.getniv();
+
+
+
+    }
+
+    void setpv(int a) { 
+        pv = a; 
+    }
+    void setpa(int b) { 
+        pa = b; 
+    }
+    void setniv(int c) { 
+        niv = c; 
+    }
+
+    int getpv() { 
+        return pv; 
+    }
+    int getpa() { 
+        return pa; 
+    }
+    int getniv() { 
+        return niv; 
+    }
+
+    void affiche() {
+        std::cout << "créature niveau : " << niv << " pv : " << pv << " pa : " << pa << std::endl;
+    }
+
+    int attaque() {
+        std::cout << "la créature a infligé : " << pa << " dégâts" << std::endl;
+        return pa;
+    }
+
+    void subitDegat(int degat) {
+        pv = pv - degat;
+    }
+
+    bool estVivant() {
+        return pv > 0;
+    }
+};
+
+class Heros {
+private:
+    std::string nom;
+    int pv;
+    int pa;
+
+public:
+    Heros() {
+        nom = "";
+        pv = 0;
+        pa = 0;
+    }
+
+    Heros(std::string nom, int pv, int pa) {
+        setnom(nom);
+        setpv(pv);
+        setpa(pa);
+    }
+
+    Heros(Heros &Heros1){
+        this->nom = Heros1.getnom();
+        this->pv = Heros1.getpv();
+        this->pa = Heros1.getpa();
+
+    }
+
+    void setpv(int a) { 
+        pv = a; 
+    }
+
+    void setpa(int b) { 
+        pa = b; 
+    }
+
+    void setnom(std::string c) { 
+        nom = c; 
+    }
+
+    int getpv() { return pv; }
+    int getpa() { return pa; }
+    std::string getnom() { return nom; }
+
+    void affiche() {
+        std::cout << "nom : " << nom << " pv : " << pv << " pa : " << pa << std::endl;
+    }
+
+    int attaque() {
+        std::cout << "le héros a infligé : " << pa << " dégâts" << std::endl;
+        return pa;
+    }
+
+    void subitDegat(int degat) {
+        pv = pv - degat;
+    }
+
+    bool estVivant() {
+        return pv > 0;
+    }
+};
+
+int main() {
+    Creature c1;
+    c1.setpv(100);
+    c1.setpa(35);
+    c1.setniv(5);
+
+    Heros h1;
+    h1.setpv(70);
+    h1.setpa(20);
+    h1.setnom("batman");
+
+    int d = h1.attaque();   // dégâts infligés par le héros
+    int d2 = c1.attaque();  // dégâts infligés par la créature
+
+    c1.subitDegat(d);       // la créature subit les dégâts du héros
+    h1.subitDegat(d2);      // le héros subit les dégâts de la créature
+
+    c1.affiche();
+    h1.affiche();
+
+    return 0;
+}
