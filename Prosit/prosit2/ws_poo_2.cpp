@@ -189,6 +189,7 @@ Avec le passage par référence, on agit directement sur l'objet en passant par 
 
 #include <iostream>
 #include <string>
+using namespace std;
 
 class Creature {
 private:
@@ -197,25 +198,34 @@ private:
     int niv;
 
 public:
+    static int compteur;
+
     Creature() {
         pv = 0;
         pa = 0;
         niv = 1;
+        compteur +=1;
+
     }
 
     Creature(int pv, int pa, int niv) {
         setpv(pv);
         setpa(pa);
         setniv(niv);
+        compteur +=1;
+
     }
 
     Creature(Creature &Creature1){
         this->pv = Creature1.getpv();
         this->pa = Creature1.getpa();
         this->niv = Creature1.getniv();
+        compteur +=1;
+    }
 
-
-
+    ~Creature(){
+        compteur -=1;
+        cout <<"Creature detruite"<<endl;
     }
 
     void setpv(int a) { 
@@ -254,7 +264,13 @@ public:
     bool estVivant() {
         return pv > 0;
     }
+
+    void afficher_compteur(){
+        std::cout<<"compteur creature :"<<compteur<<std::endl;
+    }
 };
+
+int Creature::compteur = 0;
 
 class Heros {
 private:
@@ -281,6 +297,8 @@ public:
         this->pa = Heros1.getpa();
 
     }
+
+    ~Heros(){}
 
     void setpv(int a) { 
         pv = a; 
@@ -316,11 +334,44 @@ public:
     }
 };
 
+void foo() {
+    Creature c3;
+    cout << "Nombre de créatures: " << Creature::compteur << endl;
+}
+
+void test1() {
+    cout << "Test 1: \n";
+    Creature c1;
+    Creature c2(10, 2, 2);
+    cout << "Nombre de créatures: " << Creature::compteur << endl;
+    foo();
+    cout << "Nombre de créatures: " << Creature::compteur << endl;
+}
+
+void bar(Creature c1) {
+    Creature c2;
+    cout << "Nombre de créatures: " << Creature::compteur << endl;
+}
+
+void test2() {
+    cout << "Test 2: \n";
+    Creature c1;
+    Creature c2(10, 2, 2);
+    cout << "Nombre de créatures: " << Creature::compteur << endl;
+    bar(c2);
+    cout << "Nombre de créatures: " << Creature::compteur << endl;
+}
+
 int main() {
     Creature c1;
     c1.setpv(100);
     c1.setpa(35);
     c1.setniv(5);
+
+    Creature c2;
+    c2.setpv(120);
+    c2.setpa(40);
+    c2.setniv(6);
 
     Heros h1;
     h1.setpv(70);
@@ -335,6 +386,11 @@ int main() {
 
     c1.affiche();
     h1.affiche();
+
+    std::cout<<"compteur creature :"<<Creature::compteur<<std::endl;
+
+    test1();
+    test2();
 
     return 0;
 }
