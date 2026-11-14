@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 /* //Partie 1 : 
 
 
@@ -181,8 +182,7 @@ Avec le passage par référence, on agit directement sur l'objet en passant par 
 
 
 */
-
-// Partie 3 : 
+/*// Partie 3 : 
 
 #include<iostream>
 #include<string>
@@ -391,6 +391,100 @@ int main() {
 
     test1();
     test2();
+
+    return 0;
+}
+*/
+
+// Bonus
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Date {
+private:
+    int j;
+    int m;
+    int a;
+
+public:
+    Date() {
+        j = 1;
+        m = 1;
+        a = 1900;
+    }
+
+    Date(int jj, int mm, int aa) {
+        j = jj;
+        m = mm;
+        a = aa;
+    }
+
+    int get_j() { return j; }
+    int get_m() { return m; }
+    int get_a() { return a; }
+
+    void set_j(int jj) { j = jj; }
+    void set_m(int mm) { m = mm; }
+    void set_a(int aa) { a = aa; }
+
+    static void affiche_jj_mm_aaaa(int jj, int mm, int aa) {
+        cout << jj << "/" << mm << "/" << aa << endl;
+    }
+    static void affiche_mm_jj_aaaa(int jj, int mm, int aa) {
+        cout << mm << "/" << jj << "/" << aa << endl;
+    }
+};
+
+class Livre {
+private:
+    string Auteur;
+    string Titre;
+    Date Date_publication;
+
+public:
+    Livre() {
+        Auteur = "";
+        Titre = "";
+        Date_publication = Date();   // 01/01/1900
+    }
+
+    Livre(string auteur, string titre, Date date) {
+        set_auteur(auteur);
+        set_titre(titre);
+        set_date(date);
+    }
+
+    Livre(const Livre &autre) {
+        Auteur = autre.Auteur;
+        Titre = autre.Titre;
+        Date_publication = autre.Date_publication;
+    }
+
+    string get_auteur() { return Auteur; }
+    string get_titre() { return Titre; }
+    Date get_date() { return Date_publication; }
+
+    void set_auteur(string auteur) { Auteur = auteur; }
+    void set_titre(string titre) { Titre = titre; }
+    void set_date(Date date) { Date_publication = date; }
+
+    void affiche_livre() {
+        cout << "Auteur : " << Auteur << "\n" << "Titre : " << Titre << "\n"<< "Date de publication : "<< Date_publication.get_j() << "/"<< Date_publication.get_m() << "/"<< Date_publication.get_a() << endl;
+    }
+};
+int main() {
+    Date::affiche_jj_mm_aaaa(3, 2, 2026);
+
+    Date d1(8,6,1949);
+
+
+    Livre l;
+    l.set_auteur("Orwell");
+    l.set_titre("1984");
+    l.set_date(d1);
+
+    l.affiche_livre();
 
     return 0;
 }
