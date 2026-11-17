@@ -1,6 +1,7 @@
 #include <ostream>
 #include <iostream>
 #include <string>
+#include <list>
 using namespace std;
 /* // Exercice 1, f) à finir 
 class Vehicule {
@@ -125,10 +126,10 @@ class Piece {
         set_windows(nb_wind);
         set_color(col);
     }
-    Piece(Piece &piece){
+    /*Piece(Piece const &piece){
         this->nb_windows = piece.get_windows();
         this->color = piece.get_color();
-    }
+    }*/
     int get_windows(){
         return nb_windows;
     }
@@ -144,9 +145,110 @@ class Piece {
     void affiche(){
         cout<<"la piece est "<<color<<" et a "<<nb_windows<<"fenetres"<<endl;
     }
+    virtual bool is_Salle_de_bain(){
+        return false;
+    }
+    virtual bool is_Chambre(){
+        return false;
+    }
 };
+
+class Salle_de_bain : public Piece {
+    private :
+    bool has_shower;
+
+    public :
+    Salle_de_bain(){
+        nb_windows = 0;
+        color = "blanche";
+        has_shower = false;
+    }
+    Salle_de_bain(int nb_wind, string col, bool shower){
+        Piece(nb_wind,col);
+        set_shower(shower);
+    }
+    bool get_shower(){
+        return has_shower;
+    }
+     void set_shower(bool show){
+        has_shower = show;
+    }
+    bool is_Salle_de_bain() override{
+        return true;
+    }
+};
+
+class Chambre : public Piece {
+    private :
+    int nb_lits;
+
+    public :
+    Chambre(){
+        Piece();
+        nb_lits = 1;
+    }
+    Chambre(int nb_wind, string col,int lit){
+        Piece(nb_wind,col);
+        set_lit(lit);
+
+    }
+    bool get_lit(){
+        return nb_lits;
+    }
+    void set_lit(int lit){
+        nb_lits = lit;
+    }
+    bool is_Chambre() override{
+        return true;
+    }
+};
+
 
 class Maison {
     private : 
-    listePieces l_pieces;
-}
+    list<Piece*> l_pieces;
+
+    public : 
+    Maison(){    
+    }
+    void ajoute_piece(Piece* p){
+        l_pieces.push_back(p);
+    }
+
+    int get_nb_salle_de_bain() {
+        int compteur_s=0;
+        for (Piece *piece : l_pieces){
+        if (piece->is_Salle_de_bain()){
+            compteur_s+=1;
+        }
+    }
+        return compteur_s;
+    }
+
+    int get_nb_chambre() {
+        int compteur_c=0;
+        for (Piece *piece : l_pieces){
+        if (piece->is_Chambre()){
+            compteur_c+=1;
+        }
+    }
+    return compteur_c;
+    }
+};
+
+int main(){
+    Maison m1;
+    Piece *b1 = new Salle_de_bain();
+    Piece *b2 = new Salle_de_bain(2,"noir",true);
+    Piece *c2 = new Chambre();
+    m1.ajoute_piece(b1);
+    m1.ajoute_piece(b2);
+    m1.ajoute_piece(c2);
+
+    cout<<m1.get_nb_salle_de_bain()<<endl;
+    cout<<m1.get_nb_chambre()<<endl;
+
+    }
+
+
+    
