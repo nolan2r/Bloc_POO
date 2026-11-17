@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include <list>
+#include <math.h>
+
 using namespace std;
 /* // Exercice 1, f) à finir 
 class Vehicule {
@@ -111,7 +113,7 @@ int main(){
 }
 */
 
-//Exercice 2
+/* //Exercice 2
 
 class Piece {
     protected :
@@ -126,10 +128,7 @@ class Piece {
         set_windows(nb_wind);
         set_color(col);
     }
-    /*Piece(Piece const &piece){
-        this->nb_windows = piece.get_windows();
-        this->color = piece.get_color();
-    }*/
+   
     int get_windows(){
         return nb_windows;
     }
@@ -250,5 +249,81 @@ int main(){
 
     }
 
+*/
 
-    
+
+//Exercice 3
+
+
+class Objet {
+    public : 
+    virtual double aire() = 0;
+    virtual double perimetre() = 0;
+    virtual void afficheInfo() = 0;
+    virtual ~Objet() {};
+};
+
+class Rectangle : public Objet {
+    private : 
+    double largeur;
+    double longueur;
+    public : 
+    Rectangle(double l, double lg){
+        setlongueur(l);
+        setlargeur(lg);
+    }
+    void setlongueur(double l){
+        longueur = l;
+    }
+    void setlargeur(double lg){
+        largeur = lg;
+    }
+    double getlargeur(){
+        return largeur;
+    }  
+    double getlongueur(){
+        return longueur;
+    }
+    double aire() override {
+        return getlongueur()*getlargeur();
+    }
+    double perimetre() override {
+        return 2*(getlongueur()+getlargeur());
+    }
+    void afficheInfo() override {
+        cout<<"aire rectangle : "<<aire()<<"\n perimetre rectangle : "<<perimetre()<<endl;
+    }
+};
+
+class Carre : public Objet {
+    private : 
+    double cote;
+    public :
+    Carre(double c){
+        setcote(c);
+    }
+    void setcote(double c){
+        cote = c;
+    }
+    double getcote(){
+        return cote;
+    }
+    double aire() override {
+        return getcote()*getcote();
+    }
+    double perimetre() override {
+        return 4*getcote();
+    }
+    void afficheInfo() override {
+        cout<<"aire carre : "<<aire()<<"\nperimetre carre : "<<perimetre()<<endl;
+    }
+};
+
+int main() {
+    Rectangle r(20,30);
+    r.afficheInfo();
+    Carre c(10);
+    c.afficheInfo();
+}
+
+
