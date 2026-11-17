@@ -1,7 +1,8 @@
 #include <ostream>
 #include <iostream>
+#include <string>
 using namespace std;
-
+/* // Exercice 1, f) à finir 
 class Vehicule {
     private : 
     double vitesse_max;
@@ -76,9 +77,76 @@ class Bus : public Vehicule {
     }
 };
 
+class SchoolBus : public Bus 
+{
+private:
+    string school_name;
+public:
+// constructeur
+    SchoolBus(string sn){
+        school_name = sn;
+    }
+// getter & setter
+    void setSn(string n_sn){
+        school_name = n_sn;
+    }
+
+    string getSn(){
+        return school_name;
+    }
+    static int countbigbus(SchoolBus t[]){
+        for(int i = 0,i : t,i++){
+            if 
+        }
+    }
+};
+
+
 int main(){
     Vehicule v1(260,15000);
     Bus b1(210,2000,40);
     b1.afficher();
 
+}
+*/
+
+//Exercice 2
+
+class Piece {
+    protected :
+    int nb_windows;
+    string color; 
+    public : 
+    Piece(){
+        nb_windows = 0;
+        color = "blanche";
+    }
+    Piece(int nb_wind, string col){
+        set_windows(nb_wind);
+        set_color(col);
+    }
+    Piece(Piece &piece){
+        this->nb_windows = piece.get_windows();
+        this->color = piece.get_color();
+    }
+    int get_windows(){
+        return nb_windows;
+    }
+    string get_color(){
+        return color;
+    }
+    void set_windows(int nb_wind){
+        nb_windows = nb_wind;
+    }
+    void set_color(string col){
+        color = col;
+    }
+    void affiche(){
+        cout<<"la piece est "<<color<<" et a "<<nb_windows<<"fenetres"<<endl;
+    }
+};
+
+class Maison {
+    private : 
+    listePieces l_pieces;
 }
