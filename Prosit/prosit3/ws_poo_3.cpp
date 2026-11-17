@@ -1,3 +1,5 @@
+#include <ostream>
+#include <iostream>
 using namespace std;
 
 class Vehicule {
@@ -46,8 +48,7 @@ class Bus : public Vehicule {
     int capacite;
     public : 
     Bus(){
-        vitesse_max = 240;
-        kilometrage = 0;
+        Vehicule();
         capacite = 10;
     }
     Bus(double vit, double kilo, int capa){
@@ -55,11 +56,8 @@ class Bus : public Vehicule {
         setkilo(kilo);
         setcapacite(capa);
     }
-    Bus(Bus &bus){
-        this->vitesse_max = bus.getvitesse();
-        this->kilometrage = bus.getkilo();
-        this->capacite = bus.getcapacite();
-    
+    Bus(Bus &bus) : Vehicule(bus){
+        this->capacite = bus.capacite;
     }
 
     int getcapacite(){
@@ -72,8 +70,15 @@ class Bus : public Vehicule {
         }
     }
     void afficher(){
-        cout<<"vitesse max : "<< vitesse_max<<"\nkilometrage : "
-        <<kilometrage<<"\ncapacite : " <<capacite << endl;
+        cout<<"Il s'agit d'un bus de capacite de " <<capacite 
+        <<" places avec une vitesse maximale de "<< getvitesse()
+        <<" kmh et son kilometrage est de "<<getkilo()<<" km"<<endl;
     }
 };
 
+int main(){
+    Vehicule v1(260,15000);
+    Bus b1(210,2000,40);
+    b1.afficher();
+
+}
